@@ -1,0 +1,4 @@
+<!--
+registration-page.min.js v1.0.0
+-->
+<%if ($('#registration-success-content').length == 0){%><div class="sub-content hide" id="registration-success-content"> <header> <h2>Registration Result</h2> </header> <p>Registration form has been submitted successfully! I would like to <a href="<%= I.BaseURL %>/register" data-route-on="true">register</a> again.</a> </div><div class="sub-content hide" id="registration-cancelled-content"> <header> <h2>Registration Cancelled</h2> </header> <p>Your registration has been cancelled. I would like to <a href="<%= I.BaseURL %>/register" data-route-on="true">register</a> again.</a> </div><div class="sub-content hide" id="registration-expired-content"> <header> <h2>Registration Expired</h2> </header> <p>Sorry, your registration form session has been expired. For security purpose, the form data has been reset. Click <a href="<%= I.BaseURL %>/register" data-route-on="true">here</a> to register again.</a> </div><%}%>

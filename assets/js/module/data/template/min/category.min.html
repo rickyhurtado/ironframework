@@ -1,0 +1,4 @@
+<!--
+category.min.js v1.0.0
+-->
+<h4 style="text-transform: uppercase; font-weight: normal">Contacts</h4><div class="category-block"> <ul> <% _.each(categories, function(category) { %> <li><a href="<%= I.BaseURL %>/model-and-collection/<%= category.get('fragment') %>" data-route-on="true"><%= category.get('category') %></a></li> <% }); %> </ul></div>

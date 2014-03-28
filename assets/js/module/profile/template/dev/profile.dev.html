@@ -1,0 +1,52 @@
+<!--
+profile.dev.html
+
+@category   Template
+@version    1.0
+@author     Ricky Hurtado <ricky@aelogica.com>
+-->
+
+<h4 style="text-transform: uppercase; font-weight: normal">Contact Details</h4>
+
+<%
+if (details.get)
+{
+%>
+<table class="table table-bordered" style="width:500px">
+  <tr>
+    <th colspan="2">PERSONAL</th> 
+  </tr>
+  <tr>
+    <td>ID</td>
+    <td><%= details.get('person_id') %></td>
+  </tr>
+  <tr>
+    <td>Name</td>
+    <td><%= details.get('firstname') + ' ' + details.get('lastname') %> </td>
+  </tr>
+  <tr>
+    <td>Email</td>
+    <td><%= details.get('email') %></td>
+  </tr>
+  <tr>
+    <td>Contact</td>
+    <td><%= details.get('contact') %></td>
+  </tr>
+</table>
+  
+<%= extra %>
+
+<%
+}
+else
+{
+%>
+<p style="margin-top: 0">No records founds.</p>
+<%
+}
+%>
+
+<p>
+  <a href="<%= I.BaseURL %>/model-and-collection" data-route-on="true">Contacts</a>&nbsp;&nbsp;|&nbsp;
+  <a href="<%= I.BaseURL %>/model-and-collection/<%= category %>" data-route-on="true"><span style="text-transform: capitalize;"><%= category.replace(/-/g, ' ') %></span></a>
+</p>
