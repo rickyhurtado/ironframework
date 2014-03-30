@@ -1,4 +1,4 @@
-Ironframework
+Ironframework with PHP and Bootstrap
 =============
 
 __This version is still under development and will be released on April 2014.__
