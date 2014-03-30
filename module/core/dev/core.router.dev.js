@@ -53,7 +53,7 @@ define([], function()
      */
     staticPage : function(static_page)
     {
-      if (static_page.match(/sample-static-page|another-static-page/))
+      if (static_page.match(/^sample-static-page|another-static-page$/))
       {
         clearTimeout(this.checkPage);
         console.log('[Route] ' + static_page);
