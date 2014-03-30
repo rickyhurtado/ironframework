@@ -1,0 +1,47 @@
+body {
+  font-family: "Helvetica Neue", Arial, Tahoma, sans;
+}
+#wrapper > h1 {
+  font-size: 5em;
+  text-align: center;
+}
+#wrapper > h1 > a {
+  text-decoration: none;
+  text-transform: uppercase;
+}
+#wrapper > h1 small {
+  font-weight: normal;
+}
+.green {
+  color: #39BB37;
+}
+.pink {
+  color: #FF7E93;
+}
+.blue {
+  color: #2a5fc9;
+}
+.orange {
+  color: #ff921d;
+}
+.hide {
+  display: none;
+}
+table, fieldset {
+  margin-bottom: 20px;
+}
+th {
+  text-align: left;
+}
+td:first-child {
+  width: 150px;
+}
+[type=text], [type=password], textarea {
+  width: 490px;
+}
+.error {
+  border-color: #CC0000;
+}
+.data-form-input-message {
+  font-style: italic;
+}
