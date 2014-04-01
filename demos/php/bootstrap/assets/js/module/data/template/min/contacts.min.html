@@ -1,0 +1,4 @@
+<!--
+contacts.min.js v1.0
+-->
+<h4 style="text-transform: uppercase; font-weight: normal"><%= category.replace(/-/g, ' ') %></h4><%if (contacts && contacts.length > 0){%><ul><% _.each(contacts, function(contact) {%> <li><a href="<%= I.BaseURL %>/model-and-collection/<%= category %>/<%= contact.get('person_id') %>" data-route-on="true"><%= contact.get('firstname') %> <%= contact.get('lastname') %></a></li><% });%></ul><%}else{%><p>No records found.</p><%}%><p> <a href="<%= I.BaseURL %>/model-and-collection" data-route-on="true">Contacts</a><br/></p>

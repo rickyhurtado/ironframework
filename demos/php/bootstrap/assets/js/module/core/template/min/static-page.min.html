@@ -1,0 +1,4 @@
+<!--
+core-page.min.js v1.0
+-->
+<div class="mini-layout hide" id="static-content"><%if (page == 'sample-static-page'){%> <header> <h2>Sample Static Page</h2> </header> <p>This is a sample static page. Click <a href="<% I.BaseURL %>/another-static-page">here</a> to view another static page.</p><%}else if (page == 'another-static-page'){%> <header> <h2>Another Static Page</h2> </header> <p>This is a another sample static page. Go <a href="<% I.BaseURL %>/sample-static-page">back</a> to the sample static page.</p><%}else{%> <header> <h2>404 Page Not Found</h2> </header> <p>Sorry, the page you are looking for is not found.</p><%}%></div>

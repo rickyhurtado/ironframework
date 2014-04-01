@@ -1,0 +1,31 @@
+<!--
+message-page.dev.html
+
+@category   Template
+@version    1.0
+@author     Ricky Hurtado <ricky@aelogica.com>
+-->
+
+<div class="mini-layout hide" id="message-content">
+  <header>
+    <h2>Router and View</h2>
+    <h4>Extending and Overriding the Message Module</h4>
+  </header>
+
+  <h3 style="font-weight: normal">Default Message Module</h3>
+
+  <div id="target-content"></div>
+
+  <h3 style="font-weight: normal; margin-top: 40px;">Extending the Message View Class</h3>
+
+  <p>
+    <a href="<%= I.BaseURL %>/router-and-view/message/console-log" data-route-on="true"><button type="button" class="console-log-extend-button btn btn-primary">Console Log (ConsoleExtend)</button></a>
+    <a href="<%= I.BaseURL %>/router-and-view/message/alert" data-route-on="true"><button type="button" class="btn btn-danger">Alert (AlertExtend)</button></a>
+  </p>
+  
+  <p>&nbsp;</p>
+
+  <h3 style="font-weight: normal;">Logged Message</h3>
+
+  <div id="log-message"></div>
+</div>
