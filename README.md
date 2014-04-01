@@ -13,4 +13,4 @@ The Ironframework is very new and there are plenty of room for improvements. Con
 The Ironframework will be available soon with the MVC backend frameworks such as Ruby on Rails, Laravel, CodeIgniter and Zend Framework 2 for the dynamic selection of JS modules. Top front end frameworks will also be used such as Twitter Bootstrap, Foundation and jQuery Mobile.
 
 ### Do you have question, comment or suggestion?
-Just shoot me with an email! Rock on! \m/_
+Just shoot me an email! Rock on! \m/_
