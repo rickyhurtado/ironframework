@@ -1,8 +1,8 @@
 <?php
 /**
  * index.php
- * 
- * @version   1.0
+ *
+ * @version   1.0.1
  * @author    Ricky Hurtado <ricky@aelogica.com>
  *
  * Dynamic server page options in loading the application modules
@@ -57,12 +57,12 @@ switch ($uri[1])
     $app_module     = array('data','contacts','business');
     $base_module    = array('profile');
     break;
-  
+
   // Load the server-sent-event module
   case 'server-sent-event':
     $app_module     = array('server-sent-event');
     break;
-  
+
   // Load the registration module
   case 'register':
     $app_module     = array('registration');
@@ -82,11 +82,11 @@ $token      = array_merge($default_token, $app_token);
     <meta charset="utf-8">
 
     <title>Ironframework by Ironcoder</title>
-    
+
     <link rel="stylesheet" href="<?php echo $base_url; ?>/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo $base_url; ?>/assets/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="<?php echo $base_url; ?>/assets/css/ironframework.css">
-    
+
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -95,7 +95,7 @@ $token      = array_merge($default_token, $app_token);
   </head>
 
   <body role="document">
-        
+
     <div role="navigation" class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -120,7 +120,7 @@ $token      = array_merge($default_token, $app_token);
         </div>
       </div>
     </div><!-- END navigation -->
-      
+
     <div class="container" id="main-container">
       <section>
         <div id="main-content">
@@ -150,11 +150,11 @@ $token      = array_merge($default_token, $app_token);
         </div>
       </section>
     </div><!-- END main-container -->
-    
+
     <script>
       // Init the Ironframework object
       var I = {};
-      
+
       // Set the Ironframework properties
       I.BaseURL    = '<?php echo $base_url; ?>';
       I.Module     = ['<?php echo implode($module, "','"); ?>'];
@@ -171,11 +171,11 @@ $token      = array_merge($default_token, $app_token);
         document.write(unescape('%3Cscript src="' + I.BaseURL + '/assets/js/vendor/jquery/jquery-1.11.0.min.js"%3E%3C/script%3E'));
       }
     </script>
-    <script data-main="/assets/js/config<?php if ($minified): echo '.min'; endif; ?>" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.11/require.min.js"></script>
+    <script data-main="/assets/js/config<?php if ($minified): echo '.min'; endif; ?>" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.14/require.min.js"></script>
     <script>
       if (typeof(requirejs) == 'undefined')
       {
-        document.write(unescape('%3Cscript data-main="/assets/js/config<?php if ($minified): echo '.min'; endif; ?>" src="' + I.BaseURL + '/assets/js/vendor/require/require-2.1.11.min.js"%3E%3C/script%3E'));
+        document.write(unescape('%3Cscript data-main="/assets/js/config<?php if ($minified): echo '.min'; endif; ?>" src="' + I.BaseURL + '/assets/js/vendor/require/require-2.1.14.min.js"%3E%3C/script%3E'));
       }
     </script>
   </body>
