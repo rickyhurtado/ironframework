@@ -1,15 +1,15 @@
 /**
  * config.js
- * 
- * @version   1.0
+ *
+ * @version   1.0.1
  * @author    Ricky Hurtado <ricky@aelogica.com>
- * 
+ *
  * Required JS configuration file for Ironframework.
  */
 
 /**
  * Development option
- * 
+ *
  * Use 'dev' for development and 'min' for production
  * Disable the console.log() function if option value is 'min'
  */
@@ -39,16 +39,16 @@ I.Library = {};
  * Register the required JS files from CDN
  */
 I.Paths.backbone   = ['//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min', 'vendor/backbone/backbone-1.1.2.min'];
-I.Paths.jquery     = ['//code.jquery.com/jquery-1.11.0.min', 'vendor/jquery/jquery-1.11.0.min'];
-I.Paths.modernizr  = ['//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min', 'vendor/modernizr/modernizr-2.7.1.min'];
+I.Paths.jquery     = ['//code.jquery.com/jquery-1.11.1.min', 'vendor/jquery/jquery-1.11.1.min'];
+I.Paths.modernizr  = ['//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.min', 'vendor/modernizr/modernizr-2.8.2.min'];
 I.Paths.underscore = ['//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min', 'vendor/underscore/underscore-1.6.0.min'];
 
 /**
  * Register the required JS files from localhost
  */
 I.Paths.backbone_extend       = ['vendor/backbone/backbone-extend-1.0.0.min'];
-I.Paths.backbone_subroute     = ['vendor/backbone/backbone-subroute-0.4.1.min'];
-I.Paths.backbone_localstorage = ['vendor/backbone/backbone-localstorage-1.1.7.min'];
+I.Paths.backbone_subroute     = ['vendor/backbone/backbone-subroute-0.4.3.min'];
+I.Paths.backbone_localstorage = ['vendor/backbone/backbone-localstorage-1.1.9.min'];
 I.Paths.ejs                   = ['vendor/ejs/ejs-1.0.min'];
 
 /**
@@ -63,7 +63,7 @@ I.Shim.underscore            = { exports : '_' };
 
 /**
  * Libraries
- * 
+ *
  * Library modules must be enabled here by adding the JS file name (excluding the prefix).
  */
 I.Libraries = [
@@ -74,12 +74,12 @@ I.Libraries = [
 
 /**
  * Helpers
- * 
+ *
  * Helper modules must be enabled here by adding the JS file name (excluding the prefix).
  */
 I.Helpers = [
-  'utf8-encode',
-  'sha1'
+  'sha1',
+  'utf8-encode'
 ];
 
 /**
@@ -122,14 +122,14 @@ I.RegisterModule = function(modules, type)
           I.Shim[module_prop + '_collection']  = { deps : ['backbone'] };
           I.Shim[module_prop + '_model']       = { deps : ['backbone'] };
         }
-        
+
         if (type == 'module')
         {
           I.Paths[module_prop + '_module']     = [module_path + '.module.' + I.JsVersion];
           I.Paths[module_prop + '_controller'] = [module_path + '.controller.' + I.JsVersion];
           I.Paths[module_prop + '_router']     = [module_path + '.router.' + I.JsVersion];
           I.Paths[module_prop + '_view']       = [module_path + '.view.' + I.JsVersion];
-          
+
           I.Shim[module_prop + '_module']      = { deps : ['backbone'] };
           I.Shim[module_prop + '_controller']  = { deps : ['backbone'] };
           I.Shim[module_prop + '_router']      = { deps : ['backbone'] };
