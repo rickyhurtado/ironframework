@@ -164,11 +164,11 @@ $token      = array_merge($default_token, $app_token);
       I.Collection = ['<?php echo implode($collection, "','"); ?>'];
       I.Token      = <?php echo json_encode($token); ?>;
     </script>
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <script>
       if (typeof(jQuery) == 'undefined')
       {
-        document.write(unescape('%3Cscript src="' + I.BaseURL + '/assets/js/vendor/jquery/jquery-1.11.0.min.js"%3E%3C/script%3E'));
+        document.write(unescape('%3Cscript src="' + I.BaseURL + '/assets/js/vendor/jquery/jquery-1.11.1.min.js"%3E%3C/script%3E'));
       }
     </script>
     <script data-main="/assets/js/config<?php if ($minified): echo '.min'; endif; ?>" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.14/require.min.js"></script>
