@@ -3,7 +3,7 @@
  * 
  * @package   RegistrationView
  * @category  View
- * @version   1.0
+ * @version   1.0.1
  * @author    Ricky Hurtado <ricky@aelogica.com>
  */
 
@@ -46,8 +46,8 @@ define([
      */
     template :
     {
-      registrationPage : new EJS( {url: I.JsPath + '/module/registration/template/' + I.JsVersion + '/registration-page.' + I.JsVersion + '.html'} ),
-      resultPage       : new EJS( {url: I.JsPath + '/module/registration/template/' + I.JsVersion + '/result-page.' + I.JsVersion + '.html'} )
+      registrationPage : new EJS( {url: I.JsPath + '/modules/registration/template/' + I.JsVersion + '/registration-page.' + I.JsVersion + '.html'} ),
+      resultPage       : new EJS( {url: I.JsPath + '/modules/registration/template/' + I.JsVersion + '/result-page.' + I.JsVersion + '.html'} )
     },
     
     /**

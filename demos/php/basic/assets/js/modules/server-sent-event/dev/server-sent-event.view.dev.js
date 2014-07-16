@@ -1,9 +1,9 @@
 /**
  * server-sent-event.view.dev.js
- * 
+ *
  * @package   ServerSentEventView
  * @category  View
- * @version   1.0
+ * @version   1.0.1
  * @author    Ricky Hurtado <ricky@aelogica.com>
  */
 
@@ -21,15 +21,15 @@ define([], function()
     {
       console.log('Backbone.View.ServerSentEventView has been initialized.');
     },
-    
+
     /**
      * Init template property fpr EJS container
      */
     template :
     {
-      serverSentEventPage : new EJS( {url: I.JsPath + '/module/server-sent-event/template/' + I.JsVersion + '/server-sent-event-page.' + I.JsVersion + '.html'} )
+      serverSentEventPage : new EJS( {url: I.JsPath + '/modules/server-sent-event/template/' + I.JsVersion + '/server-sent-event-page.' + I.JsVersion + '.html'} )
     },
-    
+
     /**
      * Target element container
      */
@@ -38,7 +38,7 @@ define([], function()
       mainContent            : '#main-content',
       serverSentEventContent : '#server-sent-event-content'
     },
-    
+
     /**
      * Render server-sent-event page
      */
@@ -47,6 +47,6 @@ define([], function()
       $(this.target.mainContent).append(this.template.serverSentEventPage.render({}));
     }
   });
-  
+
   return ServerSentEventView;
 });

@@ -1,9 +1,9 @@
 /**
  * message.view.dev.js
- * 
+ *
  * @package   MessageView
  * @category  View
- * @version   1.0
+ * @version   1.0.1
  * @author    Ricky Hurtado <ricky@aelogica.com>
  */
 
@@ -23,7 +23,7 @@ define([
     {
       console.log('Backbone.View.MessageView has been initialized.');
     },
-    
+
     /**
      * Default values
      */
@@ -35,12 +35,12 @@ define([
         alert      : 'Default message of alert button.'
       }
     },
-    
+
     /**
      * Set the el property
      */
     el : $('body'),
-    
+
     /**
      * Target element container
      */
@@ -50,16 +50,16 @@ define([
       content     : '#target-content',
       message     : '#log-message'
     },
-    
+
     /**
      * Init template property for EJS container
      */
     template :
     {
-      messagePage : new EJS( {url: I.JsPath + '/module/message/template/' + I.JsVersion + '/message-page.' + I.JsVersion + '.html'} ),
-      buttons     : new EJS( {url: I.JsPath + '/module/message/template/' + I.JsVersion + '/buttons.' + I.JsVersion + '.html'} )
+      messagePage : new EJS( {url: I.JsPath + '/modules/message/template/' + I.JsVersion + '/message-page.' + I.JsVersion + '.html'} ),
+      buttons     : new EJS( {url: I.JsPath + '/modules/message/template/' + I.JsVersion + '/buttons.' + I.JsVersion + '.html'} )
     },
-    
+
     /**
      * Attach events to elements
      */
@@ -68,7 +68,7 @@ define([
       'click .console-log-btn' : 'displayConsoleLogMessage',
       'click .alert-btn'       : 'displayAlertMessage'
     },
-    
+
     /**
      * Render message page
      */
@@ -76,7 +76,7 @@ define([
     {
       $(this.target.mainContent).append(this.template.messagePage.render({}));
     },
-    
+
     /**
      * Display console log or alert button from EJS template
      */
@@ -84,7 +84,7 @@ define([
     {
       $(this.target.content).append(this.template.buttons.render({ button : button }));
     },
-    
+
     /**
      * Display message
      */
@@ -92,30 +92,30 @@ define([
     {
       $(this.target.message).html('<p><strong>Message:</strong> ' + message + '</p>');
     },
-    
+
     /**
      * Display console log message
      */
     displayConsoleLogMessage : function()
     {
       var message = this.options.message.consoleLog;
-      
+
       this.displayMessage(message);
       console.log(message);
     },
-    
+
     /**
      * Display alert message
      */
     displayAlertMessage : function()
     {
       var message = this.options.message.alert;
-      
+
       this.displayMessage(message);
       console.log('[Message displayed via alert]');
       alert(message);
     }
   });
-  
+
   return MessageView;
 });
