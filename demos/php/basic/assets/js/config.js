@@ -1,7 +1,7 @@
 /**
  * config.js
  *
- * @version   1.0.1
+ * @version   1.0.2
  * @author    Ricky Hurtado <ricky@aelogica.com>
  *
  * Required JS configuration file for Ironframework.
@@ -100,6 +100,9 @@ I.RegisterModule = function(modules, type)
 {
   if (modules != undefined)
   {
+    // Convert libraries or helpers into singular form otherwise, retain the type value
+    type = type == 'libraries' ? 'library' : type == 'helpers' ? 'helper' : type;
+
     for (var i = 0; i < modules.length; i++)
     {
       var module       = modules[i];
@@ -114,7 +117,7 @@ I.RegisterModule = function(modules, type)
       }
       else
       {
-        if (type == 'collection')
+        if (type == 'collections')
         {
           I.Paths[module_prop + '_collection'] = [module_path + '.collection.' + I.JsVersion];
           I.Paths[module_prop + '_model']      = [module_path + '.model.' + I.JsVersion];
@@ -123,7 +126,7 @@ I.RegisterModule = function(modules, type)
           I.Shim[module_prop + '_model']       = { deps : ['backbone'] };
         }
 
-        if (type == 'module')
+        if (type == 'modules')
         {
           I.Paths[module_prop + '_module']     = [module_path + '.module.' + I.JsVersion];
           I.Paths[module_prop + '_controller'] = [module_path + '.controller.' + I.JsVersion];
@@ -145,11 +148,11 @@ I.RegisterModule = function(modules, type)
  */
 
 I.Module = I.CoreModule.concat(I.Module);
-I.RegisterModule(I.Module, 'module');
-I.RegisterModule(I.BaseModule, 'module');
-I.RegisterModule(I.Collection, 'collection');
-I.RegisterModule(I.Libraries, 'library');
-I.RegisterModule(I.Helpers, 'helper');
+I.RegisterModule(I.Module, 'modules');
+I.RegisterModule(I.BaseModule, 'modules');
+I.RegisterModule(I.Collection, 'collections');
+I.RegisterModule(I.Libraries, 'libraries');
+I.RegisterModule(I.Helpers, 'helpers');
 
 /**
  * Log the I.Paths and I.Shim

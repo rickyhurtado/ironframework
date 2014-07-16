@@ -2,14 +2,15 @@
 /**
  * index.php
  *
- * @version   1.0
+ * @version   1.0.2
  * @author    Ricky Hurtado <ricky@aelogica.com>
  *
  * Dynamic server page options in loading the application modules
  */
 
-// NOTE for loading the the minified version of JS files (using the config.min JS file)
-// Find and replace assets/js/config with assets/js/config.min or scroll down at bottom of this page
+// I.BaseURL value should be replaced with absolute URL path
+// NOTE for loading the the development version of JS files (using the config JS file without .min)
+// Find and replace assets/js/config.min with assets/js/config or scroll down at bottom of this page
 ?>
 <!DOCTYPE html>
 <html>
@@ -94,11 +95,11 @@
         document.write(unescape('%3Cscript src="/basic/assets/js/vendor/jquery/jquery-1.11.1.min.js"%3E%3C/script%3E'));
       }
     </script>
-    <script data-main="/basic/assets/js/config.min" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.11/require.min.js"></script>
+    <script data-main="/basic/assets/js/config.min" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.14/require.min.js"></script>
     <script>
       if (typeof(requirejs) == 'undefined')
       {
-        document.write(unescape('%3Cscript data-main="/basic/assets/js/config.min" src="/basic/assets/js/vendor/require/require-2.1.11.min.js"%3E%3C/script%3E'));
+        document.write(unescape('%3Cscript data-main="/basic/assets/js/config.min" src="/basic/assets/js/vendor/require/require-2.1.14.min.js"%3E%3C/script%3E'));
       }
     </script>
   </body>
