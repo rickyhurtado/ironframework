@@ -8,8 +8,15 @@
  */
 
 define([
-  'settings_module'
+  'category_model',
+  'contacts_model',
+  'contacts_business_model',
+  'settings_module',
+  'collection_library'
 ], function(
+  CategoryModel,
+  ContactsModel,
+  ContactsBusinessModel
 ){
   /**
    * Init InitModule class
@@ -27,10 +34,22 @@ define([
       this.settings = I.Settings.Controller;
       
       // Update the settings
+      // this.settings.update( { setting : 'sync_data_on_login', value : false } );
+      // this.settings.update( { setting : 'sync_data_on_page_load', value : false } );
+      // this.settings.update( { setting : 'auto_sync_data', value : true } );
+      this.settings.update( { setting : 'storage_cache_time', value : 1 } );
+      this.settings.update( { setting : 'cache_time_type', value : 'hour' } );
+      console.log(this.settings.models());
       
       // Set the models
+      this.options.models.category          = CategoryModel;
+      this.options.models.contacts          = ContactsModel;
+      this.options.models.contacts_business = ContactsBusinessModel;
       
       // Set the collections
+      this.options.collections.category          = I.Init.Collections.Category;
+      this.options.collections.contacts          = I.Init.Collections.Contacts;
+      this.options.collections.contacts_business = I.Init.Collections.ContactsBusiness;
     },
     
     /**
