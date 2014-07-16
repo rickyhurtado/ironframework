@@ -1,15 +1,15 @@
 /**
  * config.js
- * 
- * @version   1.0.1
+ *
+ * @version   1.0.2
  * @author    Ricky Hurtado <ricky@aelogica.com>
- * 
+ *
  * Required JS configuration file for Ironframework.
  */
 
 /**
  * Development option
- * 
+ *
  * Use 'dev' for development and 'min' for production
  * Disable the console.log() function if option value is 'min'
  */
@@ -66,7 +66,7 @@ I.Shim.underscore            = { exports : '_' };
 
 /**
  * Libraries
- * 
+ *
  * Library modules must be enabled here by adding the JS file name (excluding the prefix).
  */
 I.Libraries = [
@@ -77,7 +77,7 @@ I.Libraries = [
 
 /**
  * Helpers
- * 
+ *
  * Helper modules must be enabled here by adding the JS file name (excluding the prefix).
  */
 I.Helpers = [
@@ -110,14 +110,17 @@ I.RegisterModule = function(modules, type)
       var module_path  = type + '/' + module + '/' + I.JsVersion + '/' + module;
       var module_class = I.toCamel(module);
 
-      if (type.match(/library|helper/))
+      if (type.match(/libraries|helpers/))
       {
-        I.Paths[module_prop + '_' + type] = [module_path + '.' + type + '.' + I.JsVersion];
-        I.Shim[module_prop + '_' + type]  = { deps : ['jquery'], exports : module_class + I.toCamel(type) };
+        // Convert libraries or helpers into singular form otherwise, retain the type value
+        new_type = type == 'libraries' ? 'library' : 'helper';
+
+        I.Paths[module_prop + '_' + new_type] = [module_path + '.' + new_type + '.' + I.JsVersion];
+        I.Shim[module_prop + '_' + new_type]  = { deps : ['jquery'], exports : module_class + I.toCamel(type) };
       }
       else
       {
-        if (type == 'collection')
+        if (type == 'collections')
         {
           I.Paths[module_prop + '_collection'] = [module_path + '.collection.' + I.JsVersion];
           I.Paths[module_prop + '_model']      = [module_path + '.model.' + I.JsVersion];
@@ -125,14 +128,14 @@ I.RegisterModule = function(modules, type)
           I.Shim[module_prop + '_collection']  = { deps : ['backbone'] };
           I.Shim[module_prop + '_model']       = { deps : ['backbone'] };
         }
-        
-        if (type == 'module')
+
+        if (type == 'modules')
         {
           I.Paths[module_prop + '_module']     = [module_path + '.module.' + I.JsVersion];
           I.Paths[module_prop + '_controller'] = [module_path + '.controller.' + I.JsVersion];
           I.Paths[module_prop + '_router']     = [module_path + '.router.' + I.JsVersion];
           I.Paths[module_prop + '_view']       = [module_path + '.view.' + I.JsVersion];
-          
+
           I.Shim[module_prop + '_module']      = { deps : ['backbone'] };
           I.Shim[module_prop + '_controller']  = { deps : ['backbone'] };
           I.Shim[module_prop + '_router']      = { deps : ['backbone'] };
@@ -148,11 +151,11 @@ I.RegisterModule = function(modules, type)
  */
 
 I.Module = I.CoreModule.concat(I.Module);
-I.RegisterModule(I.Module, 'module');
-I.RegisterModule(I.BaseModule, 'module');
-I.RegisterModule(I.Collection, 'collection');
-I.RegisterModule(I.Libraries, 'library');
-I.RegisterModule(I.Helpers, 'helper');
+I.RegisterModule(I.Module, 'modules');
+I.RegisterModule(I.BaseModule, 'modules');
+I.RegisterModule(I.Collection, 'collections');
+I.RegisterModule(I.Libraries, 'libraries');
+I.RegisterModule(I.Helpers, 'helpers');
 
 /**
  * Log the I.Paths and I.Shim

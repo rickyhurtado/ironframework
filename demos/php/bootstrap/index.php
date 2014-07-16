@@ -2,7 +2,7 @@
 /**
  * index.php
  *
- * @version   1.0.1
+ * @version   1.0.2
  * @author    Ricky Hurtado <ricky@aelogica.com>
  *
  * Dynamic server page options in loading the application modules
