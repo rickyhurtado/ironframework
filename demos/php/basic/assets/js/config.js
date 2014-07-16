@@ -100,9 +100,6 @@ I.RegisterModule = function(modules, type)
 {
   if (modules != undefined)
   {
-    // Convert libraries or helpers into singular form otherwise, retain the type value
-    type = type == 'libraries' ? 'library' : type == 'helpers' ? 'helper' : type;
-
     for (var i = 0; i < modules.length; i++)
     {
       var module       = modules[i];
@@ -110,10 +107,13 @@ I.RegisterModule = function(modules, type)
       var module_path  = type + '/' + module + '/' + I.JsVersion + '/' + module;
       var module_class = I.toCamel(module);
 
-      if (type.match(/library|helper/))
+      if (type.match(/libraries|helpers/))
       {
-        I.Paths[module_prop + '_' + type] = [module_path + '.' + type + '.' + I.JsVersion];
-        I.Shim[module_prop + '_' + type]  = { deps : ['jquery'], exports : module_class + I.toCamel(type) };
+        // Convert libraries or helpers into singular form otherwise, retain the type value
+        new_type = type == 'libraries' ? 'library' : 'helper';
+
+        I.Paths[module_prop + '_' + new_type] = [module_path + '.' + new_type + '.' + I.JsVersion];
+        I.Shim[module_prop + '_' + new_type]  = { deps : ['jquery'], exports : module_class + I.toCamel(type) };
       }
       else
       {
