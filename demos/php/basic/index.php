@@ -88,11 +88,11 @@
       I.Collection = ['settings','category','contacts','contacts-business','registration','registration-contacts'];
       I.Token      = { "login":"s0m3t0k3nh3r3F0rl0gf0rm","registration":"s0m3t0k3nh3r3f0rr3gf0rm" };
     </script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
     <script>
       if (typeof(jQuery) == 'undefined')
       {
-        document.write(unescape('%3Cscript src="/basic/assets/js/vendor/jquery/jquery-1.11.1.min.js"%3E%3C/script%3E'));
+        document.write(unescape('%3Cscript src="/basic/assets/js/vendor/jquery/jquery-2.0.2.min.js"%3E%3C/script%3E'));
       }
     </script>
     <script data-main="/basic/assets/js/config.min" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.14/require.min.js"></script>
@@ -101,6 +101,6 @@
       {
         document.write(unescape('%3Cscript data-main="/basic/assets/js/config.min" src="/basic/assets/js/vendor/require/require-2.1.14.min.js"%3E%3C/script%3E'));
       }
-    </script>
+   </script>
   </body>
 </html>

@@ -1,7 +1,7 @@
 /**
  * config.js
  *
- * @version   1.0.2
+ * @version   1.0.3
  * @author    Ricky Hurtado <ricky@aelogica.com>
  *
  * Required JS configuration file for Ironframework.
@@ -40,7 +40,7 @@ I.Library = {};
  */
 I.Paths.backbone   = ['//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min', 'vendor/backbone/backbone-1.1.2.min'];
 I.Paths.bootstrap  = ['//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min', 'vendor/bootstrap/bootstrap-3.2.0.min'];
-I.Paths.jquery     = ['//code.jquery.com/jquery-1.11.1.min', 'vendor/jquery/jquery-1.11.1.min'];
+I.Paths.jquery     = ['//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min', 'vendor/jquery/jquery-2.0.2.min'];
 I.Paths.modernizr  = ['//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.min', 'vendor/modernizr/modernizr-2.8.2.min'];
 I.Paths.select2    = ['//cdnjs.cloudflare.com/ajax/libs/select2/3.5.0/select2.min', 'vendor/select2/select2-3.5.0.min'];
 I.Paths.underscore = ['//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min', 'vendor/underscore/underscore-1.6.0.min'];

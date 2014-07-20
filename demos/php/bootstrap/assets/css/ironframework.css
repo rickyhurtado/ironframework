@@ -289,7 +289,7 @@ Version: 3.4.5 Timestamp: Mon Nov  4 08:22:42 PST 2013
 
 .select2-container .select2-choice .select2-arrow {
   display: inline-block;
-  width: 19px;
+  width: 20px;
   height: 100%;
   position: absolute;
   right: 0;
@@ -714,6 +714,10 @@ padding: 3px 5px 3px 5px !important;
   height: 100px;
   overflow: scroll;
 }
+.select2-hidden-accessible {
+  display: none;
+}
+
 /* Retina-ize icons */
 
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi)  {
