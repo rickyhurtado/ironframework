@@ -1,6 +1,6 @@
 /**
  * init.controller.dev.js
- * 
+ *
  * @package   InitController
  * @category  Controller
  * @version   1.0
@@ -8,16 +8,10 @@
  */
 
 define([
-  'category_model',
-  'contacts_model',
-  'contacts_business_model',
   'settings_module',
   'collection_library'
-], function(
-  CategoryModel,
-  ContactsModel,
-  ContactsBusinessModel
-){
+], function()
+{
   /**
    * Init InitModule class
    */
@@ -29,10 +23,10 @@ define([
     initialize : function()
     {
       console.log('Backbone.Controller.InitController has been initialized.');
-      
+
       // Init and set the settings property
       this.settings = I.Settings.Controller;
-      
+
       // Update the settings
       // this.settings.update( { setting : 'sync_data_on_login', value : false } );
       // this.settings.update( { setting : 'sync_data_on_page_load', value : false } );
@@ -40,18 +34,12 @@ define([
       this.settings.update( { setting : 'storage_cache_time', value : 1 } );
       this.settings.update( { setting : 'cache_time_type', value : 'hour' } );
       console.log(this.settings.models());
-      
+
       // Set the models
-      this.options.models.category          = CategoryModel;
-      this.options.models.contacts          = ContactsModel;
-      this.options.models.contacts_business = ContactsBusinessModel;
-      
+
       // Set the collections
-      this.options.collections.category          = I.Init.Collections.Category;
-      this.options.collections.contacts          = I.Init.Collections.Contacts;
-      this.options.collections.contacts_business = I.Init.Collections.ContactsBusiness;
     },
-    
+
     /**
      * Init options
      */
@@ -63,7 +51,7 @@ define([
       collections     : {},
       json_data       : {}
     },
-    
+
     /**
      * Start checking the local storage settings syncing time schedule
      */
@@ -75,7 +63,7 @@ define([
       var sync_data_in_process = this.settings.get('sync_data_in_process');
       var sync_on_page_load    = this.settings.get('sync_data_on_page_load');
       // var sync_data_on_login   = this.settings.get('sync_data_on_login'); // If login feature is present
-      
+
       if (auto_sync || sync_on_page_load)
       {
         // Init syncing remote data
@@ -85,7 +73,7 @@ define([
         {
           self.syncLocalStorage();
         }
-        
+
         if (auto_sync)
         {
           // Check the syncing time expiration
@@ -99,12 +87,12 @@ define([
         }
       }
     },
-    
+
     /**
      * Check the sync time
-     * 
+     *
      * Sample settings functions:
-     * 
+     *
      * this.settings.add({ setting : 'cache_time_type', value : 'hour', title : 'Cache Time Type', description : 'Select hour or second for time type.' });
      * this.settings.add({ setting : 'storage_cache_time', value : 60, title : 'Storage Cache Time', description : 'Length of time before auto-syncing of server data.' });
      * this.settings.add({ setting : 'date_time_synced', value : null, title : 'Date and Time Synced', description : 'Data and time of last syncing of server data.' });
@@ -124,7 +112,7 @@ define([
         var cache_time_type    = this.settings.get('cache_time_type');
         var date_last_synced   = this.settings.get('date_time_synced');
         var multiplier         = 1;
-        
+
         // Convert time into milliseconds
         switch(cache_time_type)
         {
@@ -132,11 +120,11 @@ define([
           case 'minute' : multiplier = 60;
           default       : storage_cache_time *= multiplier;
         }
-        
+
         // Check if local storage sync time has been reached
         return today - date_last_synced >= storage_cache_time;
     },
-    
+
     /**
      * Call back process function when syncing process is completed
      */
@@ -144,7 +132,7 @@ define([
     {
       callback();
     },
-    
+
     /**
      * Check if syncing process is active
      */
@@ -153,21 +141,21 @@ define([
       // Init var
       var self = this;
       var check_sync_process;
-      
+
       if (self.settings.get('sync_data_in_process'))
       {
         console.log('Syncing remote data is in process...');
-        
+
         check_sync_process = setInterval(function()
         {
           console.log(self.settings.get('sync_data_in_process'));
-          
+
           if (!self.settings.get('sync_data_in_process'))
           {
             self.settings.update( { setting : 'sync_data_in_process', value : false } );
             self.callbackProcess(callback);
             clearInterval(check_sync_process);
-            
+
             console.log('Syncing remote data has been completed.');
           }
         }, 100);
@@ -177,7 +165,7 @@ define([
         self.callbackProcess(callback);
       }
     },
-    
+
     /**
      * Sync local storage
      */
@@ -186,10 +174,10 @@ define([
       // Init var
       var self    = this;
       var options = self.options;
-      
+
       // Set the the sync data in process
       this.settings.update({ setting : 'sync_data_in_process', value : true });
-      
+
       // Sync local storage data
       console.log('Fetching the remote data...');
 
@@ -214,6 +202,6 @@ define([
       });
     }
   });
-  
+
   return InitController;
 });
