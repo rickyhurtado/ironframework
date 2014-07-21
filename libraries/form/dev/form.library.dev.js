@@ -1,8 +1,8 @@
 /**
  * form.library.dev.js
- * 
+ *
  * @category  Library
- * @version   1.0
+ * @version   1.1
  * @author    Ricky Hurtado <ricky@aelogica.com>
  */
 
@@ -24,7 +24,7 @@ I.Library.Form =
   },
   expired  : null,
   inputs   : '[type=text], [type=password], [type=radio], [type=checkbox], textarea, select',
-  
+
   /**
    * Initialize form library
    */
@@ -36,7 +36,7 @@ I.Library.Form =
     this.inputContainer  = opt.inputContainer;
     this.collections     = opt.collections;
     this.session.time    = opt.sessionTime ? opt.sessionTime : this.session.time;
-    
+
     if (opt.warning && opt.response.yes && opt.response.no && opt.expired)
     {
       this.warning      = opt.warning;
@@ -44,10 +44,10 @@ I.Library.Form =
       this.response.no  = opt.response.no;
       this.expired      = opt.expired;
     }
-    
+
     this.bindEvents();
   },
-  
+
   /**
    * Bind events for field validation
    */
@@ -55,27 +55,27 @@ I.Library.Form =
   {
     // Init var
     var self = this;
-    
+
     // Validate current field on blur or change events before saving the data to local storage
     $(document).on('blur change', '[data-form=' + this.form + ']' + ' ' + self.inputs, function()
     {
       // Init var
       var type = $(this).attr('type');
-      
+
       if (type && type.match(/radio|checkbox/))
       {
         var group       = $(this).data('form-input-group');
         var other       = $(this).data('form-input-other');
         var checked     = $('[data-form-input-group=' + group + ']:checked');
         var uncheck_all = $('[data-form-input-group=' + group + '].form-input-uncheck-all');
-        
+
         // Check/Uncheck grouped checkboxes
         if ($(this).hasClass('form-input-uncheck-all'))
         {
           if (uncheck_all.is(':checked'))
           {
             checked.not('.form-input-uncheck-all').click();
-            
+
             if (!uncheck_all.is(':checked'))
             {
               uncheck_all.click();
@@ -88,7 +88,7 @@ I.Library.Form =
           {
             uncheck_all.click();
           }
-          
+
           if (checked.length == 0)
           {
             uncheck_all.click();
@@ -102,7 +102,7 @@ I.Library.Form =
           var input_other_name  = $(this).attr('id');
           var input_other_group = $('[data-form-input-other=' + input_other_name + ']');
           var input_other       = input_other_group.find('[type=text]');
-          
+
           // Hide the other input field of current radio button
           if (type == 'radio')
           {
@@ -112,7 +112,7 @@ I.Library.Form =
                                                     $(this).data('form-rules', false).val('');
                                                 });
           }
-          
+
           if ($(this).is(':checked'))
           {
             input_other.attr('data-form-rules', 'required');
@@ -128,10 +128,10 @@ I.Library.Form =
           }
         }
       }
-      
+
       // Update the other radio or checkbox value
       var input_other = $('#' + $(this).closest('[data-form-input-other]').data('form-input-other'));
-      
+
       if (input_other.data('form-input-other'))
       {
         input_other.val($(this).val());
@@ -141,20 +141,20 @@ I.Library.Form =
       {
         input_other = '';
       }
-      
+
       // Validate input
       if ($(this).attr('data-form-rules'))
       {
         self.validateInput($(this));
       }
-      
+
       // Update the collection
       if (input_other == '')
       {
         self.updateModel($(this));
       }
     });
-    
+
     // For form session expiration events
     if (self.warning && self.response.yes && self.response.no && self.expired)
     {
@@ -166,13 +166,13 @@ I.Library.Form =
             self.sessionStart();
         }
       });
-      
+
       // Bind click event to data-form-continue-next
       $(document).on('click', '[data-form-continue-response]', function()
       {
         clearTimeout(self.session.warning);
         clearTimeout(self.session.expired);
-          
+
         if ($(this).data('form-continue-response'))
         {
           self.response.yes();
@@ -187,7 +187,7 @@ I.Library.Form =
       });
     }
   },
-  
+
   /**
    * Form session will be expired if no activity has been detected
    * First half of session time, warning function will be triggered
@@ -222,7 +222,7 @@ I.Library.Form =
       }
     }, time);
   },
-  
+
   /**
    * Get the value of the field; return empty for unchecked checkbox
    */
@@ -230,16 +230,16 @@ I.Library.Form =
   {
     // Init var
     var value  = el.val();
-    
+
     // If checkbox is unchecked, empty the value
     if (el.attr('type') == 'checkbox' && !el.is(':checked'))
     {
       value = '';
     }
-    
+
     return value;
   },
-  
+
   /**
    * Get the value of the grouped elements
    */
@@ -257,10 +257,10 @@ I.Library.Form =
         value[$(this).attr('name')] = self.getValue($(this));
       }
     });
-    
+
     return value;
   },
-  
+
   /**
    * Get the model
    */
@@ -268,7 +268,7 @@ I.Library.Form =
   {
     // Init var
     var collection = this.collections[model];
-    
+
     if (collection)
     {
       return collection.find(function(m)
@@ -276,10 +276,10 @@ I.Library.Form =
         return m.get('id') == id;
       });
     }
-    
+
     return false;
   },
-  
+
   /**
    * Update the local storage model on blur or change event trigger
    */
@@ -291,19 +291,19 @@ I.Library.Form =
     var id    = el.data('model-id');
     var input = el.data('form-input-group') && el.data('form-input-group-save') == undefined ? el.data('form-input-group') : el.attr('name');
     var value = this.getValue(el);
-    
+
     // Get the value of grouped input fields
     if (el.data('form-input-group') && el.data('form-input-group-save') == undefined)
     {
       value = this.getGroupedValue(el, false);
     }
-    
+
     // Set the model key and value
     data[input] = value;
-    
+
     // Get the model
     model = this.getModel(model, id);
-    
+
     // Update the selected model key
     if (model)
     {
@@ -311,7 +311,7 @@ I.Library.Form =
       this.updateFormDate();
     }
   },
-  
+
   /**
    * Check if the local storage session data has been expired
    */
@@ -320,13 +320,13 @@ I.Library.Form =
     // Init vars
     var today     = parseInt(new Date().getTime()/1000);
     var form_date = this.settings.get(this.settingFormDate);
-    
+
     if (form_date != 0 && today - form_date >= this.session.time)
     {
       callback();
     }
   },
-  
+
   /**
    * Update the rgistration form date from settings collection
    */
@@ -334,10 +334,10 @@ I.Library.Form =
   {
     // Init var
     var self = this;
-    
+
     self.settings.update( { setting : self.settingFormDate, value : parseInt(new Date().getTime()/1000) } );
   },
-  
+
   /**
    * Reset the collection
    */
@@ -345,13 +345,13 @@ I.Library.Form =
   {
     // Init var
     var models = [];
-    
+
     // Push the models in modal array
     collection.each(function(model)
     {
       models.push(model);
     });
-    
+
     // Destroy each models from array
     for (var i=0; i < models.length; i++)
     {
@@ -395,22 +395,22 @@ I.Library.Form =
   {
     // Init var
     var self = this;
-    
+
     // Reset and initialize collections
     _.map(self.collections, function(collection)
     {
       self.resetCollection(collection);
     });
-    
+
     // Reset form session
     clearTimeout(self.session.warning);
     clearTimeout(self.session.expired);
     self.session.warning = 0;
     self.session.expired = 0;
-    
+
     // Reset the local storage form session
     self.settings.update( { setting : self.settingFormDate, value : 0 } );
-    
+
     // Initialize collection
     if (opt.init)
     {
@@ -420,15 +420,15 @@ I.Library.Form =
       setTimeout(function()
       {
         $('[data-form=' + opt.form + ']').remove();
-        
+
         // Reset the local storage form session
         self.settings.update( { setting : self.settingFormDate, value : 0 } );
       }, 500);
     }
-    
+
     console.log('[' + opt.form + '] Form has been reset.');
   },
-  
+
   /**
    * Clear validation
    */
@@ -438,7 +438,7 @@ I.Library.Form =
     this.formIcon.removeClass('data-form-icon-success data-form-icon-error');
     this.inputElement.removeAttr('data-form-validation');
   },
-  
+
   /**
    * Mark input field with class data-form-input-success or data-form-input-error
    */
@@ -446,34 +446,34 @@ I.Library.Form =
   {
     // Init var
     var mark_input = true;
-    
+
     // Clear the validation
     this.clearValidation();
-    
+
     // Do not mark the radio buttons or checkbox if mark is true
     if (mark && this.inputElement.attr('type') && this.inputElement.attr('type').match(/radio|checkbox/))
     {
       mark_input = false;
     }
-    
+
     if (mark_input)
     {
       this.formMarker.addClass('data-form-input-' + (mark ? 'success' : 'error'));
       this.inputElement.attr('data-form-validation', (mark ? 'success' : 'error'));
     }
-    
+
     // Add message
     if (this.formMessage.text() == '')
     {
       this.formMessage.text('The ' + this.formLabel + ' is invalid.');
     }
-    
+
     // Clear message if field is valid
     if (mark)
     {
       this.formMessage.text('');
-    } 
-    
+    }
+
     // Add icon class
     this.formIcon.addClass('data-form-icon-' + (mark ? 'success' : 'error'));
   }
@@ -484,7 +484,7 @@ I.Library.Form.validateInput = function(el)
   // Init var
   var self      = this;
   var container = el.closest('[data-form-input-other]').length > 0 ? el.closest('[data-form-input-other]') : el.closest(self.inputContainer);
-  
+
   // Set and init form properties
   self.inputElement    = el;
   self.formValue       = self.getValue(el);
@@ -495,20 +495,20 @@ I.Library.Form.validateInput = function(el)
   self.formIcon        = container.find('.data-form-input-icon');
   self.formMarker      = container.find(el.data('form-input-marker'));
   self.formAllowedTags = el.data('form-allowed-tags');
-  
+
   // Get the value of grouped input fields
   if (el.data('form-input-group'))
   {
     self.formValue = self.getGroupedValue(el, false);
   }
-  
+
   // Sanitize the form value
   if (el.attr('type') == 'text' || el.is('textarea'))
   {
     self.formValue = self.stripTags($.trim(self.formValue));
     self.inputElement.val(self.formValue);
-}
-  
+  }
+
   // Validate fields with form rules only
   if (self.formRules)
   {
@@ -516,16 +516,16 @@ I.Library.Form.validateInput = function(el)
     {
       // Init var
       var test_function = 'test' + I.toCamel(self.formRules[i]);
-      
+
       console.log('[Test Function] ' + test_function);
-      
+
       if (i == 0 && test_function != 'testRequired' && self.formValue == '')
       {
         self.clearValidation();
         self.formMessage.text('');
         return true;
       }
-      
+
       if (self[test_function](el))
       {
         self.markInput(true);
@@ -545,8 +545,8 @@ I.Library.Form.validateInput = function(el)
 };
 
 /**
-* Revalidate form fields (fields with error and has been repopulated in the form upon page refresh)
-*/
+ * Revalidate form fields (fields with error and has been repopulated in the form upon page refresh)
+ */
 I.Library.Form.validate = function(el)
 {
   // Init var
@@ -555,10 +555,10 @@ I.Library.Form.validate = function(el)
   var form     = '[data-form=' + self.form + ']' + (step ? ' [data-form-step=' + el + '] ' : '');
   var result   = true;
   var fragment = '';
-  
+
   // Disable input fields
   I.Library.Form.enable(el, false);
-  
+
   // Validate the fields
   $(form).each(function()
   {
@@ -569,7 +569,7 @@ I.Library.Form.validate = function(el)
         self.validateInput($(this));
         console.log('[Validate] Field name: ' + $(this).attr('name'));
       }
-      
+
       // Check if data form validation error exists
       if ($(this).closest('[data-form-fragment] [data-form-validation=error]').length > 0)
       {
@@ -581,39 +581,39 @@ I.Library.Form.validate = function(el)
       }
     });
   });
-  
+
   // Check if data form validation error exists
   if ($(form + ' [data-form-validation=error]').length > 0)
   {
     result = false;
   }
-  
+
   // Enable the form after validation if failed
   if (!result)
   {
     I.Library.Form.enable(el, true);
-    
+
     // Navigate to form part using the fragment
     if (fragment != '')
     {
       Backbone.history.navigate(fragment, true);
     }
   }
-  
+
   return result;
 };
 
 /**
-* Validate form partial (step)
-*/
+ * Validate form partial (step)
+ */
 I.Library.Form.validateStep = function(step)
 {
   return I.Library.Form.validate(step);
 };
 
 /**
-* Strip tags of the input value
-*/
+ * Strip tags of the input value
+ */
 I.Library.Form.stripTags = function(value)
 {
   // Init var
@@ -634,8 +634,8 @@ I.Library.Form.stripTags = function(value)
 };
 
 /**
-* Test field if required
-*/
+ * Test field if required
+ */
 I.Library.Form.testRequired = function()
 {
   // Test the value
@@ -644,24 +644,24 @@ I.Library.Form.testRequired = function()
     this.formMessage.text('The ' + this.formLabel + ' field is required.');
     return false;
   }
-  
+
   return true;
 };
 
 /**
-* Test field if there are spaces in between characters
-*/
+ * Test field if there are spaces in between characters
+ */
 I.Library.Form.testNoSpaces = function()
 {
   this.formValue = this.formValue.replace( /\s+/g, '' );
   this.inputElement.val(this.formValue);
-  
+
   return true;
 };
 
 /**
-* Test field if number
-*/
+ * Test field if number
+ */
 I.Library.Form.testNumber = function()
 {
   var filter = /^([0-9])+$/;
@@ -671,40 +671,57 @@ I.Library.Form.testNumber = function()
     this.formMessage.text('The ' + this.formLabel + ' must be a number.');
     return false;
   }
-  
+
   return true;
 };
 
 /**
-* Test field if valid email address
-*/
+ * Test field if valid email address
+ */
 I.Library.Form.testEmail = function()
 {
   var filter = /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i;
-  
+
   return filter.test(this.formValue);
 };
 
 /**
-* Test field if matches the required length 
-*/
+ * Test field if matches the required length
+ */
 I.Library.Form.testLength = function()
 {
   // Init var
   var required_length = this.inputElement.data('form-rules-length');
-  
+
   if (required_length != this.formValue.length)
   {
     this.formMessage.text('The ' + this.formLabel + ' must be ' + required_length + '-character long.');
     return false;
   }
-  
+
   return true;
 };
 
 /**
-* Test field if valid date
-*/
+ * Test field if matches the required min length
+ */
+I.Library.Form.testMinLength = function()
+{
+  // Init var
+  var min_length = this.inputElement.data('form-rules-min-length');
+
+  if (min_length > this.formValue.length)
+  {
+    this.formMessage.text('The ' + this.formLabel + ' must be minimum  ' + min_length + '-character long.');
+    return false;
+  }
+
+  return true;
+};
+
+/**
+ * Test field if valid date
+ */
 I.Library.Form.testDate = function()
 {
   // Init
@@ -717,22 +734,22 @@ I.Library.Form.testDate = function()
   var date_year   = input_year.find('option:selected').val();
   var date        = (date_day ? date_day : 1) + '.' + date_month + '.' + (date_year ? date_year : 1977);
   var result      = true;
-  
+
   if (input_day.attr('data-form-validation') == 'error')
   {
     this.validateInput(input_day);
   }
-  
+
   if (input_month.attr('data-form-validation') == 'error')
   {
     this.validateInput(input_month);
   }
-  
+
   if (input_year.attr('data-form-validation') == 'error')
   {
     this.validateInput(input_year);
   }
-  
+
   if (/^\d\d?\.\d\d?\.\d\d\d?\d?$/.test(date))
   {
     var a = date.split('.');
@@ -756,6 +773,40 @@ I.Library.Form.testDate = function()
     $('[data-form-input-date=' + date_group + '] .data-form-input-message').text('The ' + this.formLabel + ' field is invalid.');
     return false;
   }
-  
+
+  return true;
+};
+
+/**
+ * Test field if matches the value of the matching element ID
+ */
+I.Library.Form.testMatch = function()
+{
+  // Init var
+  var self = this;
+  var match_id = $(self.inputElement.data('form-rules-match-id'));
+  var match_value = match_id.val();
+
+  if (match_value != self.formValue)
+  {
+    self.formMessage.text('The ' + match_id.data('form-label') +  ' and ' + self.formLabel  +  ' fields do not match.');
+
+    setTimeout(function()
+    {
+      self.inputElement = match_id;
+      self.formMarker = match_id;
+      self.markInput(false);
+    },50);
+
+    return false;
+  }
+
+  setTimeout(function()
+  {
+    self.inputElement = match_id;
+    self.formMarker = match_id;
+    self.markInput(true);
+  },50);
+
   return true;
 };
